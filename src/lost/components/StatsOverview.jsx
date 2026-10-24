@@ -17,7 +17,7 @@ export const StatsOverview = ({ onFilterLocation, currentFilterLocation }) => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
       
       {/* Total & Stored Stats */}
-      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+      <div className="bg-surface p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
             현재 교무실 보관 중
@@ -34,7 +34,7 @@ export const StatsOverview = ({ onFilterLocation, currentFilterLocation }) => {
       </div>
 
       {/* Returned Stats */}
-      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+      <div className="bg-surface p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
             누적 반환 완료
@@ -51,7 +51,7 @@ export const StatsOverview = ({ onFilterLocation, currentFilterLocation }) => {
       </div>
 
       {/* Storage Location Quick Filter Cards */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+      <div className="bg-surface p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
         <div className="flex items-center justify-between mb-2">
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center">
             <MapPin className="w-3.5 h-3.5 mr-1 text-slate-400" /> 교무실별 보관 현황

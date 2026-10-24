@@ -1,0 +1,60 @@
+/* Semantic tokens + base styles. Pages should use these names, not raw palette steps. */
+@import './palette.css';
+
+:root {
+  --font: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Noto Sans KR', sans-serif;
+
+  --bg: var(--neutral-50);
+  --surface: oklch(0.993 0.003 95);
+  --surface-2: var(--neutral-100);
+  --border: var(--neutral-200);
+  --border-strong: var(--neutral-300);
+  --text: var(--neutral-900);
+  --text-muted: var(--neutral-600);
+  --text-faint: var(--neutral-500);
+  /* Dark panel that stays dark in both themes (toasts, info boxes) */
+  --ink: oklch(0.3 0.008 95);
+  --on-ink: oklch(0.96 0.004 95);
+
+  --accent: var(--accent-600);
+  --accent-hover: var(--accent-700);
+  --accent-soft: var(--accent-50);
+  --accent-soft-border: var(--accent-200);
+  --accent-text: var(--accent-700);
+  --on-accent: #ffffff;
+
+  --success-soft: var(--success-50);
+  --success-border: var(--success-200);
+  --success-text: var(--success-700);
+  --success-solid: var(--success-500);
+  --danger-soft: var(--danger-50);
+  --danger-border: var(--danger-200);
+  --danger-text: var(--danger-700);
+  --danger-solid: var(--danger-500);
+  --warning-soft: var(--warning-50);
+  --warning-border: var(--warning-200);
+  --warning-text: var(--warning-700);
+  --warning-solid: var(--warning-500);
+
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 1px 2px oklch(0.3 0.01 95 / 0.06);
+  --shadow-md: 0 8px 24px oklch(0.3 0.01 95 / 0.07);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: oklch(0.235 0.006 95);
+    --ink: oklch(0.32 0.008 95);
+    /* In dark mode the 700 step is light, so hover goes the other way. */
+    --accent-hover: var(--accent-500);
+    /* Step 50 sits too close to the page background in dark mode. */
+    --accent-soft: var(--accent-100);
+    --success-soft: var(--success-100);
+    --danger-soft: var(--danger-100);
+    --warning-soft: var(--warning-100);
+    --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
+    --shadow-md: 0 8px 24px oklch(0 0 0 / 0.35);
+  }
+}

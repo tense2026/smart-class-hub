@@ -11,13 +11,13 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
         }
-        .intro { color: #64748b; font-size: 0.9rem; text-align: center; }
+        .intro { color: var(--text-muted); font-size: 0.9rem; text-align: center; }
 
         .legend {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             justify-content: center;
         }
         .legend-item {
@@ -25,18 +25,18 @@
             align-items: center;
             gap: 6px;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 600;
+            color: var(--text-muted);
         }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot.on { background-color: #22c55e; }
-        .dot.off { background-color: #94a3b8; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.on { background-color: var(--success-solid); }
+        .dot.off { background-color: var(--border-strong); }
 
         .desk {
-            padding: 11px;
+            padding: 10px;
             text-align: center;
-            background: #e5e8ed;
-            border-radius: 9px;
             font-weight: 700;
+            color: var(--text-muted);
         }
 
         /* Same 4x2 layout as the timetable page */
@@ -46,53 +46,35 @@
             gap: 12px;
         }
 
-        /* Default: grey (not seated) */
+        /* Default: not seated */
         .seat-card {
-            background-color: #94a3b8;
-            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
             padding: 16px 10px;
-            color: white;
+            color: var(--text-muted);
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 90px;
+            min-height: 92px;
         }
 
-        /* Pressure detected: green (seated) */
+        /* Pressure detected: seated */
         .seat-card.occupied {
-            background-color: #22c55e;
-            box-shadow: 0 6px 12px -2px rgba(34, 197, 94, 0.4);
-            transform: translateY(-2px);
+            background: var(--success-soft);
+            border-color: var(--success-border);
+            color: var(--success-text);
         }
-        .seat-card.empty { background-color: #e2e8f0; color: #94a3b8; box-shadow: none; }
+        .seat-card.empty { background: var(--surface-2); border-style: dashed; color: var(--text-faint); }
 
-        .seat-num { font-size: 0.75rem; opacity: 0.85; margin-bottom: 4px; }
-        .student-name { font-size: 1.1rem; font-weight: bold; }
-        .sensor-val { font-size: 0.7rem; opacity: 0.75; margin-top: 6px; }
+        .seat-num { font-size: 0.75rem; color: var(--text-faint); margin-bottom: 4px; }
+        .student-name { font-size: 1.05rem; font-weight: 700; }
+        .seat-card.occupied .student-name { color: var(--success-text); }
+        .sensor-val { font-size: 0.7rem; color: var(--text-faint); margin-top: 6px; }
 
-        /* Simulation panel */
-        .test-panel {
-            background: #e0f2fe;
-            border: 1px dashed #0284c7;
-            padding: 15px 20px;
-            border-radius: 14px;
-            text-align: center;
-        }
-        .test-panel h3 { font-size: 0.9rem; margin-bottom: 10px; color: #0369a1; }
-        .test-btn {
-            background: #0284c7;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-        }
-        .test-btn:hover { background: #0369a1; }
+        .test-panel { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 
         @media (max-width: 640px) {
             .seat-grid { gap: 8px; }
@@ -117,13 +99,13 @@
                 <div class="legend-item"><span class="dot off"></span> 부재 (미감지)</div>
             </div>
 
-            <div class="desk">교탁</div>
+            <div class="desk box">교탁</div>
             <div class="seat-grid" id="seatGrid"></div>
 
             <!-- Simulation until Raspberry Pi server is connected -->
-            <div class="test-panel">
-                <h3>🧪 센서 미연결용 시뮬레이션</h3>
-                <button class="test-btn" id="randomToggleBtn">무작위 감지 상태 변경</button>
+            <div class="test-panel sim-box">
+                <div class="sim-box-title">🧪 센서 미연결용 시뮬레이션</div>
+                <button class="btn primary small" id="randomToggleBtn">무작위 감지 상태 변경</button>
             </div>
         </div>
     </div>

@@ -4,22 +4,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Smart Class</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="/src/shared/base.css" />
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#172033;font-family:Arial,"Noto Sans KR",sans-serif}
-button,input{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:22px}
-header,.panel{background:#fff;border:1px solid #e1e5ed;border-radius:16px}
-header{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px}.brand{font-size:22px;font-weight:800}.muted{font-size:13px;color:#778296;margin-top:4px}
-.panel{padding:18px;margin-top:15px}.buttons{display:flex;gap:8px}.btn{border:1px solid #dbe1ea;background:#fff;border-radius:9px;padding:10px 14px}.primary{background:#3157d5;color:#fff;border-color:#3157d5}
-.search{width:100%;padding:12px;border:1px solid #dbe1ea;border-radius:9px;outline:0}.students{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(72px,auto));gap:12px;margin-top:12px;width:100%}.student{padding:12px 5px;border:1px solid #dbe1ea;background:#fff;border-radius:9px}.student.active{background:#3157d5;color:#fff}.student small{display:block;color:#788396}.student.active small{color:#e2e8ff}.student b{display:block;margin-top:4px}
-.title{display:flex;justify-content:space-between;align-items:center;gap:10px}.title h2{margin:0;font-size:19px}.nav{display:flex;gap:6px;align-items:center}.nav button{border:1px solid #dbe1ea;background:#fff;border-radius:8px;padding:7px 10px}
-.week{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:15px}.day{border:1px solid #dbe1ea;border-radius:10px;overflow:hidden}.dayhead{padding:11px;text-align:center;background:#f7f8fa;font-weight:700}.lesson{padding:9px;border-top:1px solid #edf0f4;min-height:62px}.lesson small{display:block;color:#778296;font-size:10px}.lesson b{display:block;margin:3px 0}
-#schedule,#staff{display:none}.seatgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(105px,1fr));gap:18px;margin:22px auto 0;width:100%;max-width:1000px;align-items:stretch}.seatgrid .seat{width:100%;box-sizing:border-box}.desk{width:100%;max-width:1000px;margin:0 auto 18px;padding:11px;box-sizing:border-box;text-align:center;background:#e5e8ed;border-radius:9px;font-weight:700}.seat{min-height:72px;border:1px solid #dbe1ea;background:#fff;border-radius:10px}.seat.selected{border:3px solid #3157d5;background:#eef2ff}.seat-edit{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px}.seatNumber{width:100%;padding:8px;border:1px solid #dbe1ea;border-radius:7px;text-align:center}.seatPreview{min-height:15px}.seat small{display:block;color:#778296}.seat b{display:block;margin:4px}
-#editor{display:none}.editinfo{display:grid;grid-template-columns:1fr 2fr;gap:8px}.editname{width:100%;padding:11px;border:1px solid #dbe1ea;border-radius:8px;margin:10px 0 15px}.editgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.editday{background:#f7f8fa;border:1px solid #e1e5ed;border-radius:9px;padding:8px}.editday h3{text-align:center;font-size:13px}.field{margin:8px 0}.field label{font-size:10px;color:#778296}.field input{width:100%;padding:7px;border:1px solid #dbe1ea;border-radius:6px;margin-top:3px}.wide{width:100%;margin-top:12px}
-.overlay{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.login{background:#fff;width:min(390px,100%);border-radius:18px;padding:26px}.login h2{text-align:center;margin:0 0 7px}.login p{text-align:center;color:#778296;font-size:13px}.login input{display:block;width:100%;padding:12px;border:1px solid #dbe1ea;border-radius:9px;margin:9px 0}.login .buttons{margin-top:14px}.login .buttons button{flex:1}.hint{font-size:11px;color:#778296;background:#f5f7fb;padding:9px;border-radius:8px;margin-top:10px;text-align:center}
-.toast{position:fixed;right:20px;bottom:20px;background:#172033;color:#fff;padding:11px 15px;border-radius:9px;display:none;z-index:20}
-.pagelinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:15px}.pagelink{display:block;padding:14px;background:#fff;border:1px solid #e1e5ed;border-radius:12px;text-decoration:none;color:#172033;font-weight:700;text-align:center}.pagelink:hover{border-color:#3157d5;color:#3157d5}.pagelink small{display:block;font-weight:400;color:#778296;font-size:12px;margin-top:4px}
-@media(max-width:800px){.pagelinks{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:800px){.app{padding:12px}.seatgrid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,100px);gap:8px}.seat{min-height:100px!important}.students{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,90px);gap:8px}.week,.editgrid{grid-template-columns:1fr}.title{display:block}.nav{margin-top:10px}}
+.app{max-width:1100px;margin:auto;padding:24px 16px}
+header,.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+header{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.brand{font-size:22px;font-weight:800;color:var(--text)}
+.muted{font-size:13px;color:var(--text-muted);margin-top:4px}
+.panel{padding:18px;margin-top:14px}
+.buttons{display:flex;gap:8px}
+
+.search{width:100%;padding:12px}
+.students{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(72px,auto));gap:12px;margin-top:12px;width:100%}
+.student{padding:12px 5px;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-md);cursor:pointer;transition:background .15s,border-color .15s}
+.student:hover{background:var(--surface-2)}
+.student.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-text)}
+.student small{display:block;color:var(--text-faint)}
+.student.active small{color:var(--accent-text)}
+.student b{display:block;margin-top:4px}
+
+.title{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.title h2{margin:0;font-size:19px}
+.nav{display:flex;gap:6px;align-items:center}
+.nav button{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer}
+.nav button:hover{background:var(--surface-2)}
+
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:15px}
+.day{border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden}
+.dayhead{padding:11px;text-align:center;background:var(--surface-2);font-weight:700}
+.lesson{padding:9px;border-top:1px solid var(--border);min-height:62px}
+.lesson small{display:block;color:var(--text-faint);font-size:11px}
+.lesson b{display:block;margin:3px 0}
+
+#schedule,#staff{display:none}
+.seatgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(105px,1fr));gap:18px;margin:22px auto 0;width:100%;max-width:1000px;align-items:stretch}
+.seatgrid .seat{width:100%}
+.desk{width:100%;max-width:1000px;margin:0 auto 18px;padding:11px;text-align:center;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);font-weight:700;color:var(--text-muted)}
+.seat{min-height:72px;border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-md);cursor:pointer}
+.seat:hover{background:var(--surface-2)}
+.seat.selected{border:2px solid var(--accent);background:var(--accent-soft)}
+.seat-edit{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px;cursor:default}
+.seatNumber{width:100%;padding:8px;text-align:center}
+.seatPreview{min-height:15px}
+.seat small{display:block;color:var(--text-faint)}
+.seat b{display:block;margin:4px}
+
+#editor{display:none}
+.editinfo{display:grid;grid-template-columns:1fr 2fr;gap:8px}
+.editname{width:100%;padding:11px;margin:10px 0 15px}
+.editgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.editday{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px}
+.editday h3{text-align:center;font-size:13px}
+.field{margin:8px 0}
+.field label{font-size:11px;color:var(--text-faint)}
+.field input{width:100%;padding:7px;margin-top:3px}
+.wide{width:100%;margin-top:12px}
+
+.overlay{position:fixed;inset:0;background:oklch(0.2 0.01 95 / 0.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+.login{background:var(--surface);border:1px solid var(--border);width:min(390px,100%);border-radius:var(--radius-lg);padding:26px;box-shadow:var(--shadow-md)}
+.login h2{text-align:center;margin:0 0 7px}
+.login p{text-align:center;color:var(--text-muted);font-size:13px}
+.login input{display:block;width:100%;padding:12px;margin:9px 0}
+.login .buttons{margin-top:14px}
+.login .buttons button{flex:1}
+.hint{font-size:12px;color:var(--text-muted);background:var(--surface-2);padding:9px;border-radius:var(--radius-sm);margin-top:10px;text-align:center}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:var(--on-ink);padding:11px 15px;border-radius:var(--radius-sm);display:none;z-index:20;box-shadow:var(--shadow-md)}
+
+.pagelinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.pagelink{display:block;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);text-decoration:none;color:var(--text);font-weight:700;text-align:center;transition:border-color .15s,background .15s}
+.pagelink:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-text)}
+.pagelink small{display:block;font-weight:400;color:var(--text-muted);font-size:12px;margin-top:4px}
+
+@media(max-width:800px){
+.app{padding:12px}
+.pagelinks{grid-template-columns:repeat(2,minmax(0,1fr))}
+.seatgrid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,100px);gap:8px}
+.seat{min-height:100px!important}
+.students{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,90px);gap:8px}
+.week,.editgrid{grid-template-columns:1fr}
+.title{display:block}
+.nav{margin-top:10px}
+header{flex-wrap:wrap}
+}
 </style>
 </head>
 <body>

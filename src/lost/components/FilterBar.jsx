@@ -36,7 +36,7 @@ export const FilterBar = ({
     selectedDateRange !== 'ALL';
 
   return (
-    <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs mb-6 space-y-4">
+    <div className="bg-surface p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs mb-6 space-y-4">
       
       {/* Top Search & Main Controls */}
       <div className="flex flex-col md:flex-row gap-3">
@@ -49,7 +49,7 @@ export const FilterBar = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="물건 이름, 습득 장소(예: 식당, 2층 화장실) 검색..."
-            className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm placeholder:text-slate-400 transition-all"
+            className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm placeholder:text-slate-400 transition-all"
           />
           {searchQuery && (
             <button
@@ -73,7 +73,7 @@ export const FilterBar = ({
               onClick={() => setSelectedStatus(status.id)}
               className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 selectedStatus === status.id
-                  ? 'bg-white text-indigo-600 shadow-xs'
+                  ? 'bg-surface text-indigo-600 shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -106,7 +106,7 @@ export const FilterBar = ({
           className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors cursor-pointer ${
             selectedLocation !== 'ALL'
               ? 'border-indigo-300 bg-indigo-50 text-indigo-700 font-semibold'
-              : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+              : 'border-slate-200 bg-surface text-slate-600 hover:bg-slate-50'
           }`}
         >
           <option value="ALL">🏫 보관 위치: 전체 교무실</option>
@@ -124,7 +124,7 @@ export const FilterBar = ({
           className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors cursor-pointer ${
             selectedCategory !== 'ALL'
               ? 'border-indigo-300 bg-indigo-50 text-indigo-700 font-semibold'
-              : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+              : 'border-slate-200 bg-surface text-slate-600 hover:bg-slate-50'
           }`}
         >
           <option value="ALL">📍 습득 장소: 전체 장소</option>
@@ -142,7 +142,7 @@ export const FilterBar = ({
           className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors cursor-pointer ${
             selectedDateRange !== 'ALL'
               ? 'border-indigo-300 bg-indigo-50 text-indigo-700 font-semibold'
-              : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+              : 'border-slate-200 bg-surface text-slate-600 hover:bg-slate-50'
           }`}
         >
           <option value="ALL">📅 날짜: 전체 기간</option>

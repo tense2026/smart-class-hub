@@ -51,9 +51,9 @@ export const ItemDetailModal = ({ item, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/50 backdrop-blur-sm animate-fadeIn overflow-y-auto">
       <div
-        className="relative bg-white rounded-3xl shadow-2xl border border-slate-100 w-full max-w-2xl overflow-hidden my-auto animate-scaleUp"
+        className="relative bg-surface rounded-3xl shadow-2xl border border-slate-100 w-full max-w-2xl overflow-hidden my-auto animate-scaleUp"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header bar */}
@@ -91,7 +91,7 @@ export const ItemDetailModal = ({ item, onClose }) => {
         <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
           
           {/* Main Image Gallery / Carousel */}
-          <div className="relative rounded-2xl overflow-hidden bg-slate-950 aspect-16/10 group shadow-inner">
+          <div className="relative rounded-2xl overflow-hidden bg-black aspect-16/10 group shadow-inner">
             <img
               src={images[activeImageIndex]}
               alt={item.title}
@@ -215,7 +215,7 @@ export const ItemDetailModal = ({ item, onClose }) => {
 
           {/* Returned Log Information if returned */}
           {isReturned && item.returnedLog && (
-            <div className="p-4 rounded-2xl bg-slate-900 text-white space-y-2">
+            <div className="p-4 rounded-2xl bg-ink text-white space-y-2">
               <div className="flex items-center justify-between text-xs font-semibold text-emerald-400">
                 <span className="flex items-center">
                   <CheckCircle2 className="w-4 h-4 mr-1.5" /> 분실물 수령 및 반환 완료 로그
@@ -256,7 +256,7 @@ export const ItemDetailModal = ({ item, onClose }) => {
                       <span>분실자 수령 확인 [반환 완료 처리]</span>
                     </button>
                   ) : (
-                    <div className="p-3 bg-white rounded-xl border border-amber-300 space-y-3">
+                    <div className="p-3 bg-surface rounded-xl border border-amber-300 space-y-3">
                       <p className="text-xs text-amber-950 font-semibold">
                         분실자가 오프라인 교무실에서 본인 확인 후 물건을 수령했음을 확정합니다.
                       </p>

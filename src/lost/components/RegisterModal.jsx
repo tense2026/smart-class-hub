@@ -129,9 +129,9 @@ export const RegisterModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/50 backdrop-blur-sm animate-fadeIn overflow-y-auto">
       <div
-        className="relative bg-white rounded-3xl shadow-2xl border border-slate-100 w-full max-w-xl overflow-hidden my-auto animate-scaleUp"
+        className="relative bg-surface rounded-3xl shadow-2xl border border-slate-100 w-full max-w-xl overflow-hidden my-auto animate-scaleUp"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -230,7 +230,7 @@ export const RegisterModal = ({ onClose }) => {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 bg-slate-50 focus:bg-surface focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               >
                 {FOUND_CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
@@ -245,7 +245,7 @@ export const RegisterModal = ({ onClose }) => {
                   value={customCategory}
                   onChange={(e) => setCustomCategory(e.target.value)}
                   placeholder="카테고리 직접 입력 (예: 매점, 동아리실)"
-                  className="w-full mt-2 px-3 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50/50 text-xs text-indigo-900 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none font-medium animate-fadeIn"
+                  className="w-full mt-2 px-3 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50/50 text-xs text-indigo-900 focus:bg-surface focus:ring-2 focus:ring-indigo-500 focus:outline-none font-medium animate-fadeIn"
                 />
               )}
             </div>
@@ -259,7 +259,7 @@ export const RegisterModal = ({ onClose }) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="예: 애플 에어팟 프로 2세대"
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-surface focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
             </div>
           </div>
@@ -279,7 +279,7 @@ export const RegisterModal = ({ onClose }) => {
               value={locationDetail}
               onChange={(e) => setLocationDetail(e.target.value)}
               placeholder="예: 2층 남자화장실 세면대, 식당 퇴식구 앞 3번 테이블, 1층 동아리실"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none font-medium"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-surface focus:ring-2 focus:ring-indigo-500 focus:outline-none font-medium"
             />
             {/* Quick recommendation location chips */}
             <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px]">
@@ -316,7 +316,7 @@ export const RegisterModal = ({ onClose }) => {
                 required
                 value={foundAt}
                 onChange={(e) => setFoundAt(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-surface focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
             </div>
 
@@ -331,7 +331,7 @@ export const RegisterModal = ({ onClose }) => {
                 value={finderName}
                 onChange={(e) => setFinderName(e.target.value)}
                 placeholder="예: 홍길동"
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-surface focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
               <p className="text-[10px] text-slate-400 mt-1">* 일반 학생 뷰에서는 마스킹(홍*동) 처리됩니다.</p>
             </div>
@@ -383,7 +383,7 @@ export const RegisterModal = ({ onClose }) => {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="예: 파란색 키링 포함, 주머니 내부 지우개 유"
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-surface focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
 

@@ -24,7 +24,7 @@ export const ItemCard = ({ item, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={`group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-lg hover:border-indigo-200 transition-all duration-200 cursor-pointer flex flex-col ${
+      className={`group bg-surface rounded-2xl border border-slate-200 overflow-hidden hover:shadow-lg hover:border-indigo-200 transition-all duration-200 cursor-pointer flex flex-col ${
         isReturned ? 'opacity-75 bg-slate-50/60' : ''
       }`}
     >

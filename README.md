@@ -18,6 +18,15 @@
 - `src/shared/classroom.js`: 학생·시간표·자리 데이터 로드/저장 (`/`, `/seats/`, `/gym/`에서 사용)
 - `src/shared/page.css`: `/seats/`, `/gym/`, `/door/` 공통 레이아웃
 
+## 디자인 토큰
+
+모든 페이지가 같은 색·폰트·모서리 값을 씁니다. 시스템이 다크 모드면 자동으로 어두운 테마가 적용됩니다.
+
+- `src/shared/palette.css`: OKLCH 색 팔레트. 색상군(neutral, accent, success, danger, warning, info, plum)마다 색조와 채도만 정하고, 명도 단계는 공통으로 씁니다. 다크 모드는 명도 단계만 뒤집습니다.
+- `src/shared/tokens.css`: 의미 기반 토큰(`--bg`, `--surface`, `--text`, `--accent`, `--success-soft` 등). 페이지 CSS는 이 이름만 사용합니다.
+- `src/shared/base.css`: 바닐라 페이지용 기본 요소 스타일과 `.btn`, `.sim-box`
+- 분실물 앱은 `src/lost/index.css`의 `@theme`에서 Tailwind 색상(slate, indigo, emerald 등)을 같은 팔레트로 다시 매핑합니다. 새 Tailwind 색상군을 쓸 때는 여기에 매핑을 추가해야 합니다.
+
 ## 실행
 
 ```bash

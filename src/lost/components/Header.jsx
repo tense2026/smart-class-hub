@@ -8,7 +8,7 @@ export const Header = ({ onOpenRegisterModal }) => {
   const isStaff = userRole === 'STAFF';
 
   return (
-    <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <header className="sticky top-0 z-30 bg-surface/90 backdrop-blur-md border-b border-slate-200 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           
@@ -48,7 +48,7 @@ export const Header = ({ onOpenRegisterModal }) => {
                 onClick={() => setUserRole('STUDENT')}
                 className={`flex items-center px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                   !isStaff
-                    ? 'bg-white text-slate-900 shadow-xs font-semibold'
+                    ? 'bg-surface text-slate-900 shadow-xs font-semibold'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
                 title="일반 학생 뷰 (습득자 이름 마스킹 처리)"

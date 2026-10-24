@@ -155,7 +155,7 @@ const MainContent = () => {
           </div>
         ) : (
           /* Empty State */
-          <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center my-8 max-w-md mx-auto shadow-xs">
+          <div className="bg-surface rounded-3xl border border-slate-200 p-12 text-center my-8 max-w-md mx-auto shadow-xs">
             <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4 text-slate-400">
               <SearchX className="w-8 h-8" />
             </div>
@@ -200,7 +200,7 @@ const MainContent = () => {
       <Toast />
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 py-6 mt-12">
+      <footer className="bg-surface border-t border-slate-200 py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
           <p>© 2026 교내 분실물 스마트 인계 및 조회 서비스. All rights reserved.</p>
           <p className="mt-1 text-slate-400">

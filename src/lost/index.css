@@ -1,4 +1,91 @@
 @import "tailwindcss";
+@import "../shared/tokens.css";
+
+/* Remap the Tailwind palettes this app uses onto the shared tokens, so the
+   lost app follows the same colors and dark mode as the other pages. */
+@theme {
+  --color-slate-50: var(--neutral-50);
+  --color-slate-100: var(--neutral-100);
+  --color-slate-200: var(--neutral-200);
+  --color-slate-300: var(--neutral-300);
+  --color-slate-400: var(--neutral-400);
+  --color-slate-500: var(--neutral-500);
+  --color-slate-600: var(--neutral-600);
+  --color-slate-700: var(--neutral-700);
+  --color-slate-800: var(--neutral-800);
+  --color-slate-900: var(--neutral-900);
+  --color-slate-950: var(--neutral-950);
+  --color-indigo-50: var(--accent-50);
+  --color-indigo-100: var(--accent-100);
+  --color-indigo-200: var(--accent-200);
+  --color-indigo-300: var(--accent-300);
+  --color-indigo-400: var(--accent-400);
+  --color-indigo-500: var(--accent-500);
+  --color-indigo-600: var(--accent-600);
+  --color-indigo-700: var(--accent-700);
+  --color-indigo-800: var(--accent-800);
+  --color-indigo-900: var(--accent-900);
+  --color-indigo-950: var(--accent-950);
+  --color-blue-50: var(--info-50);
+  --color-blue-100: var(--info-100);
+  --color-blue-200: var(--info-200);
+  --color-blue-300: var(--info-300);
+  --color-blue-400: var(--info-400);
+  --color-blue-500: var(--info-500);
+  --color-blue-600: var(--info-600);
+  --color-blue-700: var(--info-700);
+  --color-blue-800: var(--info-800);
+  --color-blue-900: var(--info-900);
+  --color-blue-950: var(--info-950);
+  --color-emerald-50: var(--success-50);
+  --color-emerald-100: var(--success-100);
+  --color-emerald-200: var(--success-200);
+  --color-emerald-300: var(--success-300);
+  --color-emerald-400: var(--success-400);
+  --color-emerald-500: var(--success-500);
+  --color-emerald-600: var(--success-600);
+  --color-emerald-700: var(--success-700);
+  --color-emerald-800: var(--success-800);
+  --color-emerald-900: var(--success-900);
+  --color-emerald-950: var(--success-950);
+  --color-rose-50: var(--danger-50);
+  --color-rose-100: var(--danger-100);
+  --color-rose-200: var(--danger-200);
+  --color-rose-300: var(--danger-300);
+  --color-rose-400: var(--danger-400);
+  --color-rose-500: var(--danger-500);
+  --color-rose-600: var(--danger-600);
+  --color-rose-700: var(--danger-700);
+  --color-rose-800: var(--danger-800);
+  --color-rose-900: var(--danger-900);
+  --color-rose-950: var(--danger-950);
+  --color-amber-50: var(--warning-50);
+  --color-amber-100: var(--warning-100);
+  --color-amber-200: var(--warning-200);
+  --color-amber-300: var(--warning-300);
+  --color-amber-400: var(--warning-400);
+  --color-amber-500: var(--warning-500);
+  --color-amber-600: var(--warning-600);
+  --color-amber-700: var(--warning-700);
+  --color-amber-800: var(--warning-800);
+  --color-amber-900: var(--warning-900);
+  --color-amber-950: var(--warning-950);
+  --color-purple-50: var(--plum-50);
+  --color-purple-100: var(--plum-100);
+  --color-purple-200: var(--plum-200);
+  --color-purple-300: var(--plum-300);
+  --color-purple-400: var(--plum-400);
+  --color-purple-500: var(--plum-500);
+  --color-purple-600: var(--plum-600);
+  --color-purple-700: var(--plum-700);
+  --color-purple-800: var(--plum-800);
+  --color-purple-900: var(--plum-900);
+  --color-purple-950: var(--plum-950);
+
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-on-ink: var(--on-ink);
+}
 
 @layer base {
   body {
@@ -13,16 +100,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--surface-2);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--border-strong);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--text-faint);
 }
 
 @keyframes pulse-slow {

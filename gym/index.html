@@ -11,7 +11,7 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
         }
 
         /* Top environmental sensors */
@@ -26,96 +26,89 @@
             align-items: center;
             font-size: 0.95rem;
             font-weight: 700;
-            color: #334155;
         }
         .refresh-btn {
             background: none;
             border: none;
-            color: #64748b;
+            color: var(--text-faint);
             font-size: 0.85rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 4px;
         }
-        .refresh-btn:hover { color: #2563eb; }
+        .refresh-btn:hover { color: var(--accent-text); }
 
         .env-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
+            gap: 12px;
         }
         .env-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 16px 12px;
+            padding: 14px 12px;
             display: flex;
             align-items: center;
             gap: 12px;
         }
         .env-icon {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             width: 42px;
             height: 42px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            background: var(--surface);
+            border: 1px solid var(--border);
         }
         .env-data {
             display: flex;
             flex-direction: column;
         }
-        .env-label { font-size: 0.75rem; color: #64748b; font-weight: 600; }
-        .env-value { font-size: 1.35rem; font-weight: 800; color: #0f172a; }
-        .env-value span { font-size: 0.85rem; font-weight: 600; margin-left: 2px; }
+        .env-label { font-size: 0.75rem; color: var(--text-faint); font-weight: 600; }
+        .env-value { font-size: 1.3rem; font-weight: 800; }
+        .env-value span { font-size: 0.85rem; font-weight: 600; margin-left: 2px; color: var(--text-muted); }
 
         /* Main Decision Result Card */
         .result-card {
-            border-radius: 18px;
-            padding: 28px 24px;
+            border-radius: var(--radius-lg);
+            padding: 26px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            gap: 12px;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
         .result-card.gym {
-            background: #fff5f5;
-            border: 1px solid #fecaca;
+            background: var(--warning-soft);
+            border: 1px solid var(--warning-border);
         }
         .result-card.playground {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
+            background: var(--success-soft);
+            border: 1px solid var(--success-border);
         }
 
         .result-text-group {
             display: flex;
             flex-direction: column;
             gap: 8px;
-            z-index: 2;
         }
         .result-main-text {
-            font-size: 1.8rem;
-            font-weight: 900;
+            font-size: 1.6rem;
+            font-weight: 800;
         }
-        .result-card.gym .result-main-text { color: #dc2626; }
-        .result-card.playground .result-main-text { color: #16a34a; }
+        .result-card.gym .result-main-text { color: var(--warning-text); }
+        .result-card.playground .result-main-text { color: var(--success-text); }
 
         .result-sub-text {
             font-size: 0.95rem;
-            color: #475569;
-            font-weight: 600;
-            line-height: 1.4;
+            color: var(--text-muted);
+            font-weight: 500;
+            line-height: 1.5;
         }
 
         .result-graphic {
-            font-size: 4.5rem;
-            z-index: 2;
+            font-size: 3.6rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -123,85 +116,65 @@
 
         /* Criteria Box */
         .criteria-box {
-            background: #f8fafc;
-            border-radius: 12px;
             padding: 12px 16px;
             font-size: 0.85rem;
-            color: #475569;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid #e2e8f0;
         }
+        .criteria-box b { color: var(--text); }
 
         /* Today's PE classes from the timetable */
         .pe-today {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
             padding: 16px;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        .pe-title { font-size: 0.95rem; font-weight: 700; color: #334155; }
+        .pe-title { font-size: 0.95rem; font-weight: 700; }
         .pe-list { display: flex; flex-wrap: wrap; gap: 8px; }
         .pe-chip {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 20px;
             padding: 5px 12px;
             font-size: 0.85rem;
             font-weight: 600;
-            color: #334155;
         }
-        .pe-chip b { color: #2563eb; margin-right: 4px; }
-        .pe-empty { font-size: 0.85rem; color: #94a3b8; }
+        .pe-chip b { color: var(--accent-text); margin-right: 4px; }
+        .pe-empty { font-size: 0.85rem; color: var(--text-faint); }
 
         /* Status Footer */
         .sensor-status {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #f1f5f9;
-            border-radius: 12px;
-            padding: 12px 18px;
+            gap: 10px;
+            padding: 12px 16px;
             font-size: 0.85rem;
-            font-weight: 600;
-            color: #334155;
         }
         .status-tag {
             display: flex;
             align-items: center;
             gap: 6px;
-            background: #ffffff;
+            background: var(--surface);
             padding: 4px 12px;
             border-radius: 20px;
-            border: 1px solid #cbd5e1;
+            border: 1px solid var(--border);
             font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
         }
         .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #22c55e;
+            background: var(--success-solid);
         }
 
         /* Simulation Controls */
-        .sim-control {
-            background: #e0f2fe;
-            border: 1px dashed #0284c7;
-            border-radius: 14px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .sim-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #0369a1;
-        }
+        .sim-box { display: flex; flex-direction: column; gap: 10px; }
         .sim-inputs {
             display: flex;
             gap: 12px;
@@ -212,34 +185,20 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.85rem;
             font-weight: 600;
-            color: #0369a1;
         }
         .sim-input-group input {
-            width: 60px;
+            width: 64px;
             padding: 6px;
-            border-radius: 6px;
-            border: 1px solid #7dd3fc;
             text-align: center;
             font-weight: 700;
-        }
-        .sim-btn {
-            background: #0284c7;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.85rem;
         }
 
         @media (max-width: 640px) {
             .env-cards { grid-template-columns: 1fr; }
-            .result-graphic { font-size: 3rem; }
-            .result-main-text { font-size: 1.4rem; }
-            .sensor-status { flex-direction: column; gap: 10px; }
+            .result-graphic { font-size: 2.6rem; }
+            .result-main-text { font-size: 1.3rem; }
+            .sensor-status { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -263,21 +222,21 @@
                     </button>
                 </div>
                 <div class="env-cards">
-                    <div class="env-card">
+                    <div class="env-card box">
                         <div class="env-icon">🌡️</div>
                         <div class="env-data">
                             <span class="env-label">온도</span>
                             <span class="env-value" id="tempVal">31.8<span>°C</span></span>
                         </div>
                     </div>
-                    <div class="env-card">
+                    <div class="env-card box">
                         <div class="env-icon">💧</div>
                         <div class="env-data">
                             <span class="env-label">습도</span>
                             <span class="env-value" id="humidityVal">78<span>%</span></span>
                         </div>
                     </div>
-                    <div class="env-card">
+                    <div class="env-card box">
                         <div class="env-icon">⏲️</div>
                         <div class="env-data">
                             <span class="env-label">기압</span>
@@ -301,31 +260,31 @@
             </div>
 
             <!-- Criteria Description -->
-            <div class="criteria-box">
+            <div class="criteria-box box">
                 <span>🧢</span>
                 <span><b>기준:</b> 온도 30°C 이상 또는 습도 70% 이상일 경우 체육관 수업</span>
             </div>
 
             <!-- Today's PE classes (from the timetable page) -->
-            <div class="pe-today">
+            <div class="pe-today box">
                 <div class="pe-title" id="peTitle">오늘 체육 수업</div>
                 <div class="pe-list" id="peList"></div>
             </div>
 
             <!-- Sensor Status -->
-            <div class="sensor-status">
+            <div class="sensor-status box">
                 <div class="status-tag">
                     <div class="status-dot"></div>
                     센서 정상 작동 중
                 </div>
-                <button class="sim-btn" id="serialBtn" style="background:#475569;">
+                <button class="btn small" id="serialBtn">
                     🔌 아두이노 온습도 센서 연동
                 </button>
             </div>
 
             <!-- Sensor Simulation Controller -->
-            <div class="sim-control">
-                <div class="sim-title">🧪 온/습도 값 수동 테스트 시뮬레이션</div>
+            <div class="sim-box">
+                <div class="sim-box-title">🧪 온/습도 값 수동 테스트 시뮬레이션</div>
                 <div class="sim-inputs">
                     <div class="sim-input-group">
                         온도: <input type="number" id="inputTemp" value="31.8" step="0.5"> °C
@@ -333,7 +292,7 @@
                     <div class="sim-input-group">
                         습도: <input type="number" id="inputHum" value="78" step="1"> %
                     </div>
-                    <button class="sim-btn" id="applyBtn">적용하기</button>
+                    <button class="btn primary small" id="applyBtn">적용하기</button>
                 </div>
             </div>
         </div>
