@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Class</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#172033;font-family:Arial,"Noto Sans KR",sans-serif}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:22px}
+header,.panel{background:#fff;border:1px solid #e1e5ed;border-radius:16px}
+header{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px}.brand{font-size:22px;font-weight:800}.muted{font-size:13px;color:#778296;margin-top:4px}
+.panel{padding:18px;margin-top:15px}.buttons{display:flex;gap:8px}.btn{border:1px solid #dbe1ea;background:#fff;border-radius:9px;padding:10px 14px}.primary{background:#3157d5;color:#fff;border-color:#3157d5}
+.search{width:100%;padding:12px;border:1px solid #dbe1ea;border-radius:9px;outline:0}.students{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(72px,auto));gap:12px;margin-top:12px;width:100%}.student{padding:12px 5px;border:1px solid #dbe1ea;background:#fff;border-radius:9px}.student.active{background:#3157d5;color:#fff}.student small{display:block;color:#788396}.student.active small{color:#e2e8ff}.student b{display:block;margin-top:4px}
+.title{display:flex;justify-content:space-between;align-items:center;gap:10px}.title h2{margin:0;font-size:19px}.nav{display:flex;gap:6px;align-items:center}.nav button{border:1px solid #dbe1ea;background:#fff;border-radius:8px;padding:7px 10px}
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:15px}.day{border:1px solid #dbe1ea;border-radius:10px;overflow:hidden}.dayhead{padding:11px;text-align:center;background:#f7f8fa;font-weight:700}.lesson{padding:9px;border-top:1px solid #edf0f4;min-height:62px}.lesson small{display:block;color:#778296;font-size:10px}.lesson b{display:block;margin:3px 0}
+#schedule,#staff{display:none}.seatgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(105px,1fr));gap:18px;margin:22px auto 0;width:100%;max-width:1000px;align-items:stretch}.seatgrid .seat{width:100%;box-sizing:border-box}.desk{width:100%;max-width:1000px;margin:0 auto 18px;padding:11px;box-sizing:border-box;text-align:center;background:#e5e8ed;border-radius:9px;font-weight:700}.seat{min-height:72px;border:1px solid #dbe1ea;background:#fff;border-radius:10px}.seat.selected{border:3px solid #3157d5;background:#eef2ff}.seat-edit{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px}.seatNumber{width:100%;padding:8px;border:1px solid #dbe1ea;border-radius:7px;text-align:center}.seatPreview{min-height:15px}.seat small{display:block;color:#778296}.seat b{display:block;margin:4px}
+#editor{display:none}.editinfo{display:grid;grid-template-columns:1fr 2fr;gap:8px}.editname{width:100%;padding:11px;border:1px solid #dbe1ea;border-radius:8px;margin:10px 0 15px}.editgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.editday{background:#f7f8fa;border:1px solid #e1e5ed;border-radius:9px;padding:8px}.editday h3{text-align:center;font-size:13px}.field{margin:8px 0}.field label{font-size:10px;color:#778296}.field input{width:100%;padding:7px;border:1px solid #dbe1ea;border-radius:6px;margin-top:3px}.wide{width:100%;margin-top:12px}
+.overlay{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.login{background:#fff;width:min(390px,100%);border-radius:18px;padding:26px}.login h2{text-align:center;margin:0 0 7px}.login p{text-align:center;color:#778296;font-size:13px}.login input{display:block;width:100%;padding:12px;border:1px solid #dbe1ea;border-radius:9px;margin:9px 0}.login .buttons{margin-top:14px}.login .buttons button{flex:1}.hint{font-size:11px;color:#778296;background:#f5f7fb;padding:9px;border-radius:8px;margin-top:10px;text-align:center}
+.toast{position:fixed;right:20px;bottom:20px;background:#172033;color:#fff;padding:11px 15px;border-radius:9px;display:none;z-index:20}
+.pagelinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:15px}.pagelink{display:block;padding:14px;background:#fff;border:1px solid #e1e5ed;border-radius:12px;text-decoration:none;color:#172033;font-weight:700;text-align:center}.pagelink:hover{border-color:#3157d5;color:#3157d5}.pagelink small{display:block;font-weight:400;color:#778296;font-size:12px;margin-top:4px}
+@media(max-width:800px){.pagelinks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.app{padding:12px}.seatgrid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,100px);gap:8px}.seat{min-height:100px!important}.students{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,90px);gap:8px}.week,.editgrid{grid-template-columns:1fr}.title{display:block}.nav{margin-top:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<div><div class="brand">Smart Class</div><div class="muted">학생별 시간표 · 자리 현황</div></div>
+<div class="buttons"><button id="studentMode" class="btn primary">학생 모드</button><button id="staffMode" class="btn">교직원 모드</button></div>
+</header>
+
+<nav class="pagelinks">
+<a class="pagelink" href="/seats/">📍 자리 현황<small>실시간 착석 상태</small></a>
+<a class="pagelink" href="/gym/">🏃 체육시간<small>체육관/운동장 안내</small></a>
+<a class="pagelink" href="/door/">🚪 문 제어<small>교실 문 열고 닫기</small></a>
+<a class="pagelink" href="/lost/">🎒 분실물 센터<small>등록 및 조회</small></a>
+</nav>
+
+<section class="panel">
+<input id="search" class="search" placeholder="학생 이름 또는 번호 검색 (예: 12번)">
+<div id="students" class="students"></div>
+</section>
+
+<section id="schedule" class="panel">
+<div class="title"><div><h2 id="scheduleTitle"></h2><div class="muted">선택한 학생의 시간표</div></div>
+<div class="nav"><button id="prev">‹</button><b id="weekText">이번 주</b><button id="next">›</button><button id="today">오늘</button></div></div>
+<div id="week" class="week"></div>
+</section>
+
+<section id="staff">
+<div class="panel">
+<div class="title"><div><h2>학생 정보 관리</h2><div class="muted" id="staffStatus">학생을 선택하세요.</div></div>
+<button id="editButton" class="btn primary">시간표 수정</button></div>
+</div>
+<div class="panel">
+<div class="title"><div><h2>자리 현황</h2><div class="muted" id="seatStatus">총 8자리 · 학생 자리 클릭 → 이동할 자리 클릭</div></div><div class="buttons"><button id="changeSeats" class="btn">자리 바꾸기</button><button id="cancelSeats" class="btn" style="display:none">취소</button><button id="saveSeats" class="btn primary">자리 저장</button></div></div><div id="seatHelp" class="hint" style="display:none">총 8자리만 사용합니다. 각 자리의 입력칸에 원하는 학생 번호를 입력하세요. 학생 번호와 이름은 교직원 모드에서 직접 지정할 수 있습니다.</div>
+<div class="desk">교탁</div><div id="seatgrid" class="seatgrid"></div>
+</div>
+</section>
+
+<section id="editor" class="panel">
+<div class="title"><div><h2>시간표 수정</h2><div class="muted">이름·과목·교실을 수정하세요.</div></div><button id="cancelEdit" class="btn">취소</button></div>
+<div class="editinfo"><input id="editId" class="editname" inputmode="numeric" placeholder="학생 번호"><input id="editName" class="editname" placeholder="학생 이름"></div>
+<div id="editgrid" class="editgrid"></div>
+<button id="saveEdit" class="btn primary wide">변경사항 저장</button>
+</section>
+</div>
+
+<div id="loginOverlay" class="overlay">
+<div class="login">
+<h2>🔐 교직원 모드 로그인</h2>
+<p>아이디와 비밀번호를 입력한 뒤 엔터를 누르세요.</p>
+<input id="loginId" placeholder="아이디" autocomplete="off">
+<input id="loginPw" type="password" placeholder="비밀번호" autocomplete="off">
+<div class="buttons"><button id="loginCancel" class="btn">취소</button><button id="loginSubmit" class="btn primary">로그인</button></div>
+<div class="hint">현재는 실제 계정 확인 없이 입력값이 있으면 교직원 모드로 들어갑니다.</div>
+</div></div>
+<div id="toast" class="toast"></div>
+
+<script type="module" src="/src/pages/timetable.js"></script>
+</body>
+</html>

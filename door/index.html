@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문 제어 - SMART CLASS</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="/src/shared/page.css" />
+    <style>
+        .content {
+            padding: 28px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        @media (max-width: 640px) {
+            .content { grid-template-columns: 1fr; }
+            .auto-close-sec, .serial-panel { flex-direction: column; gap: 12px; align-items: flex-start; }
+        }
+
+        .panel {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .panel-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #475569;
+            align-self: flex-start;
+            margin-bottom: 16px;
+        }
+
+        /* Sliding Door Graphic */
+        .door-wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background: #94a3b8; /* 문이 열렸을 때 보이는 내부 배경 */
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid #475569;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .sliding-door {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #2563eb;
+            border: 2px solid #1d4ed8;
+            transition: transform 0.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sliding-door .door-handle {
+            width: 8px;
+            height: 36px;
+            background: #fbbf24;
+            border-radius: 3px;
+            position: absolute;
+            right: 14px;
+        }
+        .sliding-door .door-window {
+            width: 70px;
+            height: 90px;
+            background: #93c5fd;
+            border-radius: 6px;
+            border: 2px solid #1e40af;
+        }
+
+        /* Closed vs Open state for sliding door */
+        /* 닫혀있을 때는 위치가 0 (원래 자리) */
+        .door-wrapper.closed .sliding-door {
+            transform: translateX(0);
+        }
+        /* 열려있을 때는 왼쪽으로 스르륵 밀려남 (옆으로 열림) */
+        .door-wrapper.open .sliding-door {
+            transform: translateX(-100%);
+        }
+
+        .status-badge {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .status-badge.open {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+        .status-badge.closed {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .status-time {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+        }
+        .ctrl-btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .ctrl-btn.close {
+            background: #1e40af;
+            color: #ffffff;
+        }
+        .ctrl-btn.close:hover { background: #1e3a8a; }
+        .ctrl-btn.open {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+        .ctrl-btn.open:hover { background: #dbeafe; }
+
+        /* Auto close setting */
+        .auto-close-sec {
+            grid-column: 1 / -1;
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 16px 20px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .auto-close-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.9rem;
+            color: #334155;
+            font-weight: 600;
+        }
+        .auto-close-countdown {
+            font-size: 0.8rem;
+            color: #2563eb;
+            font-weight: 600;
+            min-height: 1em;
+        }
+        .switch-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #cbd5e1; transition: .3s; border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+            background-color: white; transition: .3s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: #2563eb; }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        select {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            outline: none;
+        }
+
+        .footer-note {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: -10px;
+        }
+
+        /* Web Serial Test Panel */
+        .serial-panel {
+            grid-column: 1 / -1;
+            background: #e0f2fe;
+            border: 1px dashed #0284c7;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #0369a1;
+        }
+        .serial-btn {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="/" class="nav-btn" title="메인으로">←</a>
+            <div class="title">문 제어</div>
+            <a href="/" class="nav-btn" title="홈으로">🏠</a>
+        </div>
+
+        <div class="content">
+            <!-- Left: Current State (Sliding Door) -->
+            <div class="panel">
+                <div class="panel-title">현재 상태</div>
+                <div class="door-wrapper open" id="doorGraphic">
+                    <div class="sliding-door">
+                        <div class="door-window"></div>
+                        <div class="door-handle"></div>
+                    </div>
+                </div>
+                <div class="status-badge open" id="statusBadge">
+                    🔓 문이 열려있습니다.
+                </div>
+                <div class="status-time" id="statusTime"></div>
+            </div>
+
+            <!-- Right: Control Buttons -->
+            <div class="panel">
+                <div class="panel-title">제어 버튼</div>
+                <div class="btn-group">
+                    <button class="ctrl-btn close" id="closeBtn">
+                        🔒 문 닫기
+                    </button>
+                    <button class="ctrl-btn open" id="openBtn">
+                        🔓 문 열기
+                    </button>
+                </div>
+            </div>
+
+            <!-- Auto Close Settings -->
+            <div class="auto-close-sec">
+                <div class="auto-close-info">
+                    <span>🕒 일정 시간 후 자동으로 문을 닫을 수 있습니다.</span>
+                    <span class="auto-close-countdown" id="autoCloseCountdown"></span>
+                </div>
+                <div class="switch-group">
+                    <label class="switch">
+                        <input type="checkbox" id="autoCloseToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <select id="autoCloseTime">
+                        <option value="1">1분 후</option>
+                        <option value="3">3분 후</option>
+                        <option value="5" selected>5분 후</option>
+                        <option value="10">10분 후</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Arduino Web Serial Connection -->
+            <div class="serial-panel">
+                <span>🤖 <b>아두이노 연결:</b> 시리얼 포트(USB)를 통해 실제 보드와 연동할 수 있습니다.</span>
+                <button class="serial-btn" id="serialBtn">아두이노 연결하기</button>
+            </div>
+
+            <div class="footer-note">
+                ※ 문 제어는 관리자 권한이 필요합니다.
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/pages/door.js"></script>
+</body>
+</html>

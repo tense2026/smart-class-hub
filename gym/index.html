@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체육시간 알림 - SMART CLASS</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="/src/shared/page.css" />
+    <style>
+        .content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Top environmental sensors */
+        .env-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .env-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #334155;
+        }
+        .refresh-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .refresh-btn:hover { color: #2563eb; }
+
+        .env-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        .env-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .env-icon {
+            font-size: 1.8rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+        .env-data {
+            display: flex;
+            flex-direction: column;
+        }
+        .env-label { font-size: 0.75rem; color: #64748b; font-weight: 600; }
+        .env-value { font-size: 1.35rem; font-weight: 800; color: #0f172a; }
+        .env-value span { font-size: 0.85rem; font-weight: 600; margin-left: 2px; }
+
+        /* Main Decision Result Card */
+        .result-card {
+            border-radius: 18px;
+            padding: 28px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .result-card.gym {
+            background: #fff5f5;
+            border: 1px solid #fecaca;
+        }
+        .result-card.playground {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .result-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 2;
+        }
+        .result-main-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
+        .result-card.gym .result-main-text { color: #dc2626; }
+        .result-card.playground .result-main-text { color: #16a34a; }
+
+        .result-sub-text {
+            font-size: 0.95rem;
+            color: #475569;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .result-graphic {
+            font-size: 4.5rem;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Criteria Box */
+        .criteria-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Today's PE classes from the timetable */
+        .pe-today {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .pe-title { font-size: 0.95rem; font-weight: 700; color: #334155; }
+        .pe-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .pe-chip {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        .pe-chip b { color: #2563eb; margin-right: 4px; }
+        .pe-empty { font-size: 0.85rem; color: #94a3b8; }
+
+        /* Status Footer */
+        .sensor-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        .status-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #ffffff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.8rem;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+        }
+
+        /* Simulation Controls */
+        .sim-control {
+            background: #e0f2fe;
+            border: 1px dashed #0284c7;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sim-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0369a1;
+        }
+        .sim-inputs {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .sim-input-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0369a1;
+        }
+        .sim-input-group input {
+            width: 60px;
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid #7dd3fc;
+            text-align: center;
+            font-weight: 700;
+        }
+        .sim-btn {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            .env-cards { grid-template-columns: 1fr; }
+            .result-graphic { font-size: 3rem; }
+            .result-main-text { font-size: 1.4rem; }
+            .sensor-status { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="/" class="nav-btn" title="메인으로">←</a>
+            <div class="title">체육시간</div>
+            <a href="/" class="nav-btn" title="홈으로">🏠</a>
+        </div>
+
+        <div class="content">
+            <!-- Environmental Data Header -->
+            <div class="env-section">
+                <div class="env-title-row">
+                    <span>현재 환경</span>
+                    <button class="refresh-btn" id="refreshBtn">
+                        측정 시간 <span id="measureTime">15:48:32</span> 🔄
+                    </button>
+                </div>
+                <div class="env-cards">
+                    <div class="env-card">
+                        <div class="env-icon">🌡️</div>
+                        <div class="env-data">
+                            <span class="env-label">온도</span>
+                            <span class="env-value" id="tempVal">31.8<span>°C</span></span>
+                        </div>
+                    </div>
+                    <div class="env-card">
+                        <div class="env-icon">💧</div>
+                        <div class="env-data">
+                            <span class="env-label">습도</span>
+                            <span class="env-value" id="humidityVal">78<span>%</span></span>
+                        </div>
+                    </div>
+                    <div class="env-card">
+                        <div class="env-icon">⏲️</div>
+                        <div class="env-data">
+                            <span class="env-label">기압</span>
+                            <span class="env-value" id="pressVal">1012<span>hPa</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decision Result Display -->
+            <div class="result-card gym" id="resultCard">
+                <div class="result-text-group">
+                    <div class="result-main-text" id="resultTitle">체육관으로 와주세요!</div>
+                    <div class="result-sub-text" id="resultSub">
+                        현재 온도 또는 습도가<br>기준치를 초과했습니다.
+                    </div>
+                </div>
+                <div class="result-graphic" id="resultIcon">
+                    🏢🏃
+                </div>
+            </div>
+
+            <!-- Criteria Description -->
+            <div class="criteria-box">
+                <span>🧢</span>
+                <span><b>기준:</b> 온도 30°C 이상 또는 습도 70% 이상일 경우 체육관 수업</span>
+            </div>
+
+            <!-- Today's PE classes (from the timetable page) -->
+            <div class="pe-today">
+                <div class="pe-title" id="peTitle">오늘 체육 수업</div>
+                <div class="pe-list" id="peList"></div>
+            </div>
+
+            <!-- Sensor Status -->
+            <div class="sensor-status">
+                <div class="status-tag">
+                    <div class="status-dot"></div>
+                    센서 정상 작동 중
+                </div>
+                <button class="sim-btn" id="serialBtn" style="background:#475569;">
+                    🔌 아두이노 온습도 센서 연동
+                </button>
+            </div>
+
+            <!-- Sensor Simulation Controller -->
+            <div class="sim-control">
+                <div class="sim-title">🧪 온/습도 값 수동 테스트 시뮬레이션</div>
+                <div class="sim-inputs">
+                    <div class="sim-input-group">
+                        온도: <input type="number" id="inputTemp" value="31.8" step="0.5"> °C
+                    </div>
+                    <div class="sim-input-group">
+                        습도: <input type="number" id="inputHum" value="78" step="1"> %
+                    </div>
+                    <button class="sim-btn" id="applyBtn">적용하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/pages/gym.js"></script>
+</body>
+</html>
